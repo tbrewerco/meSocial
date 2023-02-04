@@ -26,6 +26,7 @@ export default {
         {
             name: 'image',
             title: 'Image',
+            type: 'image',
             options: {
                 hotspot: true
             }
@@ -41,8 +42,8 @@ export default {
             type: 'postedBy'
         },
         {
-            name: 'userId',
-            title: 'UserId',
+            name: 'save',
+            title: 'Save',
             type: 'array',
             of: [{ type: 'save' }]
         },

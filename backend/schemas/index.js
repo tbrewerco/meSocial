@@ -1,2 +1,7 @@
 import user from './user';
-export const schemaTypes = [user];
+import comment from './comment';
+import pin from './pin';
+import save from './save';
+import postedBy from './postedBy';
+
+export const schemaTypes = [user, comment, pin, save, postedBy];

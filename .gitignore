@@ -49,3 +49,5 @@ frontend/*.local
 *.njsproj
 *.sln
 *.sw?
+
+frontend/src/assets/Vite + React.html

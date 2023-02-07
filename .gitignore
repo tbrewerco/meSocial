@@ -51,3 +51,4 @@ frontend/*.local
 *.sw?
 
 frontend/src/assets/Vite + React.html
+frontend/.env

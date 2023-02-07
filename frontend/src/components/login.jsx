@@ -32,7 +32,7 @@ const Login = () => {
                         </div>
                         <div className='shadow-2xl'>
                             <GoogleLogin
-                                clientId={import.meta.env.REACT_APP_GOOGLE_CLIENT_ID}
+                                clientId={import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID}
 
                                 render={(renderProps) => (
                                     <button

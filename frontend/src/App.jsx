@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './containers/home.jsx';
-import Landing from './containers/Landing.jsx';
+import LoginPage from './containers/loginPage.jsx';
 import './App.css';
 import { gapi } from 'gapi-cjs';
 
@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="login" element={<Landing />} />
+      <Route path="login" element={<LoginPage />} />
       <Route path="/*" element={<Home />} />
     </Routes>
   );

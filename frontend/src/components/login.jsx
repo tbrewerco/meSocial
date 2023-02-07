@@ -8,8 +8,16 @@ import logo from '../assets/me_share5.png';
 const Login = () => {
 
     const responseGoogle = (response) => {
-        console.log(response);
-    }
+        localStorage.setItem('user', JSON.stringify(response));
+        const { name, googleId, imageUrl } = response.profileObj;
+        // create a new user 
+        const doc = {
+            _id: googleId,
+            _type: 'user',
+            username: name,
+            image: imageUrl
+        };
+    };
 
     return (
         <div className='flex justify-start items-center flex-col h-screen'>

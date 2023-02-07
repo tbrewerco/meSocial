@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './containers/home.jsx';
 import Landing from './containers/Landing.jsx';
 import './App.css';
-import { gapi } from 'gapi-script';
+import { gapi } from 'gapi-cjs';
 
 const App = () => {
 

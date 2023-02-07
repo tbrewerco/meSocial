@@ -11,7 +11,7 @@
   "dependencies": {
     "@sanity/client": "^4.0.1",
     "@sanity/image-url": "^1.0.2",
-    "gapi-script": "^1.2.0",
+    "gapi-cjs": "^1.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",

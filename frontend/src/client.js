@@ -1,5 +1,5 @@
 import sanityClient from '@sanity/client';
-import { ImageUrlBuilder } from '@sanity/image-url';
+import ImageUrlBuilder from '@sanity/image-url';
 
 export const client = sanityClient({
     projectId: import.meta.env.VITE_SANITY_PROJECT_ID,

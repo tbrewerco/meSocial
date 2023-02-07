@@ -1,18 +1,31 @@
+import { useNavigate } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import { FcGoogle } from 'react-icons/fc';
 
+import { client } from '../client';
+
 const LoginButton = () => {
+    const navigate = useNavigate();
 
     const success = (response) => {
-        console.log("RESPONSE: " + JSON.stringify(response));
+        console.log("RESPONSE: " + JSON.stringify(response.profileObj));
+
         localStorage.setItem('user', JSON.stringify(response));
+
         const { name, googleId, imageUrl } = response.profileObj;
+
+        // form and save new user document to sanity
         const doc = {
             _id: googleId,
             _type: 'user',
             username: name,
             image: imageUrl
         };
+
+        client.createIfNotExists(doc)
+            .then(() => {
+                navigate('/', { replace: true });
+            });
     };
 
     const failure = (response) => {
@@ -36,7 +49,7 @@ const LoginButton = () => {
             onFailure={failure}
             cookiePolicy='single_host_origin'
         />
-    )
-}
+    );
+};
 
 export default LoginButton;

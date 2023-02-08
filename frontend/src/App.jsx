@@ -2,8 +2,9 @@ import { React, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './containers/home.jsx';
 import LoginPage from './containers/loginPage.jsx';
-import './App.css';
+import SignupPage from './containers/signupPage.jsx';
 import { gapi } from 'gapi-cjs';
+import './App.css';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="login" element={<LoginPage />} />
+      <Route path="signup" element={<SignupPage />} />
       <Route path="/*" element={<Home />} />
     </Routes>
   );

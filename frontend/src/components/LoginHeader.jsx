@@ -8,26 +8,24 @@ const LoginHeader = ({
     linkUrl = "#"
 }) => {
     return (
-        <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
-                <div className='mb-10'>
-                    <div className='flex justify-center'>
-                        <img
-                            className="h-28 w-34"
-                            src={logo}
-                            alt='logo'
-                        />
-                    </div>
-                    <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-                        {heading}
-                    </h2>
-                    <p className='mt-2 text-center text-sm text-gray-600 mt-5'>
-                        {paragraph} {' '}
-                        <Link to={linkUrl} className='font-medium text-red-600 hover:text-red-400'>
-                            {linkName}
-                        </Link>
-                    </p>
+        <div className="max-w-md w-full space-y-8">
+            <div className='mb-10'>
+                <div className='flex justify-center'>
+                    <img
+                        className="h-28 w-34"
+                        src={logo}
+                        alt='logo'
+                    />
                 </div>
+                <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+                    {heading}
+                </h2>
+                <p className='mt-2 text-center text-sm text-gray-600 mt-5'>
+                    {paragraph} {' '}
+                    <Link to={linkUrl} className='font-medium text-red-600 hover:text-red-400'>
+                        {linkName}
+                    </Link>
+                </p>
             </div>
         </div>
     )

@@ -2,6 +2,7 @@ import { React } from 'react';
 import danceVid from '../assets/dance_1.mp4';
 import LoginButton from '../components/loginButton';
 import LoginHeader from '../components/LoginHeader';
+import Login from '../components/Login';
 
 const LoginPage = () => {
 
@@ -24,18 +25,21 @@ const LoginPage = () => {
                 </div>
             </div>
             <div className='absolute flex flex-col justify-center items-center top-0 right-0 left-0 bottom-0 bg-blackOverlay'>
-                <div className="bg-white min-h-0 max-h-96 h-screen rounded-lg flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                {/* to-do: responsive resising */}
+                <div className="bg-white min-h-0 rounded-lg flex items-center justify-center py-12 pb-12 px-12" >
                     <div className="max-w-md w-full space-y-8">
                         <LoginHeader
-                            heading='Login to your account'
+                            heading='Sign in to your account'
                             paragraph="Don't have an account yet?"
-                            linkName='Signup'
+                            linkName='Sign up'
                             linkUrl='/signup'
                         />
+                        <Login />
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
+
     );
 };
 

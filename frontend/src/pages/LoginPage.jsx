@@ -35,6 +35,9 @@ const LoginPage = () => {
                             linkUrl='/signup'
                         />
                         <LoginButton />
+                        <p className='text-center text-sm text-gray-600 mt-7'>
+                            or
+                        </p>
                         <Login />
                     </div>
                 </div>

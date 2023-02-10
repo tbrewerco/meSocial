@@ -16,7 +16,10 @@ const Login = () => {
   };
 
   return (
-    <form className='mt-8 space-y-6'>
+    <form className='mt-6 space-y-6'>
+      <p className='text-center text-sm text-gray-600'>
+        or
+      </p>
       <div >
         {
           fields.map(field =>

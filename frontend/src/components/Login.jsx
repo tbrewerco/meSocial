@@ -18,7 +18,6 @@ const Login = () => {
   return (
     <form className='mt-8 space-y-6'>
       <div >
-        <LoginButton />
         {
           fields.map(field =>
             <Input

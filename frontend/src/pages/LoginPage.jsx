@@ -26,14 +26,15 @@ const LoginPage = () => {
             </div>
             <div className='absolute flex flex-col justify-center items-center top-0 right-0 left-0 bottom-0 bg-blackOverlay'>
                 {/* to-do: responsive resising */}
-                <div className="bg-white min-h-0 rounded-lg flex items-center justify-center py-12 pb-12 px-12" >
-                    <div className="max-w-md w-full space-y-8">
+                <div className="bg-white min-h-0 rounded-lg flex items-center justify-center py-12 px-12" >
+                    <div className="max-w-md w-full">
                         <LoginHeader
                             heading='Sign in to your account'
                             paragraph="Don't have an account yet?"
                             linkName='Sign up'
                             linkUrl='/signup'
                         />
+                        <LoginButton />
                         <Login />
                     </div>
                 </div>

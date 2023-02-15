@@ -2,6 +2,9 @@ import { React, useState } from 'react';
 import { loginFields } from '../constants/formFields';
 import Input from './Input';
 import LoginButton from './loginButton';
+import FormExtra from './FormExtra';
+import FormAction from './FormAction';
+import { Form } from 'react-router-dom';
 
 const fields = loginFields;
 let fieldsState = {};
@@ -14,6 +17,16 @@ const Login = () => {
   const handleChange = (event) => {
     setLoginState({ ...loginState, [event.target.id]: event.target.value });
   };
+
+  const authenticateUser = () => {
+
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    authenticateUser();
+  };
+
 
   return (
     <form className='mt-6 space-y-6'>
@@ -38,6 +51,9 @@ const Login = () => {
           )
         }
       </div>
+
+      <FormExtra />
+      <FormAction handleSubmit={handleSubmit} text="Login" />
     </form>
   )
 };

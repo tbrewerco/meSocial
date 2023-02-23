@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useCallback } from 'react';
 import { loginFields } from '../constants/formFields';
 import Input from './Input';
 import LoginButton from './loginButton';
@@ -14,9 +14,9 @@ const Login = () => {
 
   const [loginState, setLoginState] = useState(fieldsState);
 
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     setLoginState({ ...loginState, [event.target.id]: event.target.value });
-  };
+  }, [])
 
   const authenticateUser = () => {
 

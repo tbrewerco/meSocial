@@ -15,7 +15,9 @@ const Login = () => {
   const [loginState, setLoginState] = useState(fieldsState);
 
   const handleChange = useCallback((event) => {
-    setLoginState({ ...loginState, [event.target.id]: event.target.value });
+    const { id, value } = event.target;
+    const updatedField = { [id]: value };
+    setLoginState((prevState) => ({ ...prevState, ...updatedField }))
   }, [])
 
   const authenticateUser = () => {
@@ -40,13 +42,7 @@ const Login = () => {
               key={field.id}
               handleChange={handleChange}
               value={loginState[field.id]}
-              labelText={field.labelText}
-              labelFor={field.labelFor}
-              id={field.id}
-              name={field.name}
-              type={field.type}
-              isRequired={field.isRequired}
-              placeholder={field.placeholder}
+              {...field}
             />
           )
         }

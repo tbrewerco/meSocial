@@ -1,8 +1,8 @@
 import { React, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Home from './containers/home.jsx';
-import LoginPage from './containers/loginPage.jsx';
-import SignupPage from './containers/signupPage.jsx';
+import Home from './pages/home.jsx';
+import LoginPage from './pages/loginPage.jsx';
+import SignupPage from './pages/signupPage.jsx';
 import { gapi } from 'gapi-cjs';
 import './App.css';
 
@@ -17,7 +17,6 @@ const App = () => {
     };
     gapi.load('client:auth2', start);
   });
-
 
   return (
     <Routes>

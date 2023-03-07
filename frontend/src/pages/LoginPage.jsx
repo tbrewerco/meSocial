@@ -1,8 +1,7 @@
-import { React } from 'react';
 import danceVid from '../assets/dance_1.mp4';
 import LoginButton from '../components/loginButton';
-import LoginHeader from '../components/LoginHeader';
-import Login from '../components/Login';
+import Header from '../components/Header';
+import Login from '../components/LoginSignupForm';
 
 const LoginPage = () => {
 
@@ -21,21 +20,20 @@ const LoginPage = () => {
                         className='w-full h-full object-cover'
                     />
 
-
                 </div>
             </div>
             <div className='absolute flex flex-col justify-center items-center top-0 right-0 left-0 bottom-0 bg-blackOverlay'>
                 {/* to-do: responsive resising */}
                 <div className="bg-white min-h-332px rounded-lg flex items-center justify-center py-12 px-12" >
                     <div >
-                        <LoginHeader
+                        <Header
                             heading='Sign in to your account'
                             paragraph="Don't have an account yet?"
                             linkName='Sign up'
                             linkUrl='/signup'
                         />
                         <LoginButton />
-                        <Login />
+                        <Login formType="login" />
                     </div>
                 </div>
             </div >

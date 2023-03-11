@@ -3,6 +3,7 @@ import { loginFields, signupFields } from '../constants/formFields';
 import Input from './Input';
 import FormExtra from './FormExtra';
 import FormAction from './FormAction';
+import { client } from '../client';
 
 const Form = (props) => {
 
@@ -12,25 +13,48 @@ const Form = (props) => {
   let fieldsState = {};
   fields.forEach(field => fieldsState[field.id] = '');
 
-  const [loginState, setLoginState] = useState(fieldsState);
+  const [formState, setFormState] = useState(fieldsState);
 
   const handleChange = useCallback((event) => {
     const { id, value } = event.target;
     const updatedField = { [id]: value };
-    setLoginState((prevState) => ({ ...prevState, ...updatedField }))
+    setFormState((prevState) => ({ ...prevState, ...updatedField }))
   }, [])
 
-  const authenticateUser = () => {
+  // register user 
+  const registerUser = async () => {
+    const { username, password, email } = formState;
 
+    const doc = {
+      _type: 'user',
+      username: username,
+      password: password,
+      email: email
+    };
+
+    try {
+      const createdDoc = await client.create(doc)
+        .then(() => {
+          navigate('/', { replace: true });
+        });;
+    } catch (error) {
+      console.error(`Error creating user document: ${error.message}`);
+    }
   };
 
-  const handleSubmit = (event) => {
+  // const authenticateUser = () => {
+
+  // };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    authenticateUser();
+    
+    if (props.formType === 'login') await authenticateUser();
+    else await registerUser();
   };
 
   return (
-    <form className='mt-6 space-y-6'>
+    <form className='mt-6 space-y-6' onSubmit={handleSubmit}>
       <p className='text-center text-sm text-gray-600'>
         {props.formType === 'login' ? 'or' : ''}
       </p>
@@ -40,7 +64,7 @@ const Form = (props) => {
             <Input
               key={field.id}
               handleChange={handleChange}
-              value={loginState[field.id]}
+              value={formState[field.id]}
               {...field}
             />
           )
@@ -48,7 +72,7 @@ const Form = (props) => {
       </div>
 
       <FormExtra display={props.formType === 'signup' ? false : true} />
-      <FormAction handleSubmit={handleSubmit} text='Login' />
+      <FormAction handleSubmit={handleSubmit} text={props.formType === 'signup' ? 'Sign Up' : 'Log in'} />
     </form>
   )
 };

@@ -4,6 +4,7 @@ import Input from './Input';
 import FormExtra from './FormExtra';
 import FormAction from './FormAction';
 import { client } from '../client';
+import bcrypt from 'bcryptjs';
 
 const Form = (props) => {
 
@@ -25,10 +26,16 @@ const Form = (props) => {
   const registerUser = async () => {
     const { username, password, email } = formState;
 
+    // generate salt for password hash
+    const salt = await bcrypt.genSalt(10);
+
+    // hash password
+    const hash = await bcrypt.hash(password, salt);
+
     const doc = {
       _type: 'user',
       username: username,
-      password: password,
+      password: hash,
       email: email
     };
 
@@ -48,7 +55,7 @@ const Form = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     if (props.formType === 'login') await authenticateUser();
     else await registerUser();
   };

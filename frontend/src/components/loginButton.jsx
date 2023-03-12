@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin } from '@react-oauth/google';
 import { FcGoogle } from 'react-icons/fc';
 
 import { client } from '../client';
@@ -8,7 +8,7 @@ const LoginButton = () => {
     const navigate = useNavigate();
 
     const success = (response) => {
-        console.log("RESPONSE: " + JSON.stringify(response.profileObj));
+        console.log("RESPONSE: " + JSON.stringify(response));
 
         localStorage.setItem('user', JSON.stringify(response));
 
@@ -33,22 +33,21 @@ const LoginButton = () => {
     };
 
     return (
-        <GoogleLogin
-            clientId={import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID}
-            render={(renderProps) => (
-                <button
-                    type='button'
-                    className=' flex w-full justify-center items-center p-2 cursor-pointer rounded-md outline-1 outline-gray-400 outline hover:outline-red-300'
-                    onClick={renderProps.onClick}
-                    disabled={renderProps.disabled}
-                >
-                    <FcGoogle className='mr-2' /> Sign in with Google
-                </button>
-            )}
-            onSuccess={success}
-            onFailure={failure}
-            cookiePolicy='single_host_origin'
-        />
+
+        <div class='g_id_signin' className=' flex w-full justify-center items-center p-1 cursor-pointer rounded-md outline-1 outline-white outline hover:outline-red-300'>
+
+            <GoogleLogin
+                shape='rectangular'
+                width='300'
+                theme='filled_black'
+                text="signin_with"
+                size='medium'
+                onSuccess={success}
+                onFailure={failure}
+                cookiePolicy='single_host_origin'
+            />
+
+        </div>
     );
 };
 

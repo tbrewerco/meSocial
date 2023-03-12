@@ -3,20 +3,19 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './pages/home.jsx';
 import LoginPage from './pages/loginPage.jsx';
 import SignupPage from './pages/signupPage.jsx';
-import { gapi } from 'gapi-cjs';
 import './App.css';
 
 const App = () => {
 
-  useEffect(() => {
-    function start() {
-      gapi.auth2.init({
-        clientId: import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID,
-        scope: ''
-      });
-    };
-    gapi.load('client:auth2', start);
-  });
+  // useEffect(() => {
+  //   function start() {
+  //     gapi.auth2.init({
+  //       clientId: import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID,
+  //       scope: ''
+  //     });
+  //   };
+  //   gapi.load('client:auth2', start);
+  // });
 
   return (
     <Routes>

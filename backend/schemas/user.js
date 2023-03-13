@@ -17,6 +17,11 @@ export default {
             name: 'password',
             title: 'Password',
             type: 'string',
+        },
+        {
+            name: 'email',
+            title: 'Email',
+            type: 'string'
         }
     ]
 };

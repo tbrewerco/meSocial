@@ -7,8 +7,6 @@ const LoginButton = () => {
     const navigate = useNavigate();
 
     const success = async (response) => {
-        console.log("RESPONSE: " + JSON.stringify(response));
-
         localStorage.setItem('user', JSON.stringify(response.credential));
 
         const { email, name, jti, picture } = jwt_decode(response.credential);
@@ -28,7 +26,6 @@ const LoginButton = () => {
             const existingUser = await client.fetch(query);
 
             if (existingUser) {
-                console.log(existingUser);
                 throw new Error('Email is already in use')
             } else {
                 await client.createIfNotExists(doc)

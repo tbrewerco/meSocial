@@ -26,7 +26,9 @@ const Form = (props) => {
 
   // register user 
   const registerUser = async () => {
-    const { username, password, email } = formState;
+
+    const { username, password } = formState;
+    const email = formState['email-address'];
 
     // generate salt and hash
     const salt = await bcrypt.genSalt(10);
@@ -40,15 +42,22 @@ const Form = (props) => {
     };
 
     try {
-      // create a new document in sanity db then navigate to the home page
-      await client.create(doc);
-      navigate('/', { replace: true });
+      // check if user is already in the database
+      const query = `count(*[_type == 'user' && email == '${email}'])`;
+      const existingUser = await client.fetch(query);
+
+      if (existingUser) {
+        console.log(existingUser);
+        throw new Error('Email is already in use')
+      } else {
+        await client.createIfNotExists(doc)
+        navigate('/', { replace: true });
+      }
 
     } catch (error) {
       console.error(`Error creating user document: ${error.message}`);
     }
-  };
-
+  }
   // const authenticateUser = () => {
 
   // };

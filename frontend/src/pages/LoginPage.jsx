@@ -1,7 +1,7 @@
 import danceVid from '../assets/dance_1.mp4';
 import LoginButton from '../components/loginButton';
 import Header from '../components/Header';
-import Login from '../components/LoginSignupForm';
+import Login from '../containers/LoginSignupForm';
 import { useState } from 'react';
 
 const LoginPage = () => {

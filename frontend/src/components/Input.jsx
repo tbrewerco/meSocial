@@ -22,7 +22,7 @@ const Input = (props) => {
             </label>
             <input
                 onChange={handleChange}
-                value={value}
+                value={value || ''}
                 id={id}
                 name={name}
                 type={type}

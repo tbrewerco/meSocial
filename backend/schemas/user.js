@@ -13,5 +13,15 @@ export default {
             title: 'Image',
             type: 'string',
         },
+        {
+            name: 'password',
+            title: 'Password',
+            type: 'string',
+        },
+        {
+            name: 'email',
+            title: 'Email',
+            type: 'string'
+        }
     ]
 };

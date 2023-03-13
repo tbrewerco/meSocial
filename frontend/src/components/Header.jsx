@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
 import logo from '../assets/me_share5.png';
 
 const LoginHeader = ({
     heading,
     paragraph,
     linkName,
-    linkUrl = "#"
+    formType,
+    toggleFormType
 }) => {
     return (
         <div className="max-w-md w-full space-y-8">
@@ -25,9 +25,9 @@ const LoginHeader = ({
 
                 <p className='mt-2 text-center text-sm text-gray-600 mt-5'>
                     {paragraph} {' '}
-                    <Link to={linkUrl} className='font-medium text-red-600 hover:text-red-400'>
+                    <a href='#' className='font-medium text-red-600 hover:text-red-400' onClick={toggleFormType}>
                         {linkName}
-                    </Link>
+                    </a>
                 </p>
 
             </div>

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { loginFields, signupFields } from '../constants/formFields';
+import { useNavigate } from 'react-router-dom';
 import Input from './Input';
 import FormExtra from './FormExtra';
 import FormAction from './FormAction';
@@ -8,9 +9,10 @@ import bcrypt from 'bcryptjs';
 
 const Form = (props) => {
 
+  const navigate = useNavigate();
+
   //  use appropriate form fields based on the props passed in
   const fields = props.formType === 'signup' ? signupFields : loginFields;
-
   let fieldsState = {};
   fields.forEach(field => fieldsState[field.id] = '');
 
@@ -26,10 +28,8 @@ const Form = (props) => {
   const registerUser = async () => {
     const { username, password, email } = formState;
 
-    // generate salt for password hash
+    // generate salt and hash
     const salt = await bcrypt.genSalt(10);
-
-    // hash password
     const hash = await bcrypt.hash(password, salt);
 
     const doc = {
@@ -40,10 +40,10 @@ const Form = (props) => {
     };
 
     try {
-      const createdDoc = await client.create(doc)
-        .then(() => {
-          navigate('/', { replace: true });
-        });;
+      // create a new document in sanity db then navigate to the home page
+      await client.create(doc);
+      navigate('/', { replace: true });
+
     } catch (error) {
       console.error(`Error creating user document: ${error.message}`);
     }
@@ -55,7 +55,6 @@ const Form = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (props.formType === 'login') await authenticateUser();
     else await registerUser();
   };

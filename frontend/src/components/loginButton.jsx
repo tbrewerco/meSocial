@@ -7,7 +7,7 @@ const LoginButton = () => {
     const navigate = useNavigate();
 
     const success = async (response) => {
-        localStorage.setItem('user', JSON.stringify(response.credential));
+        localStorage.setItem('user', JSON.stringify(jwt_decode(response.credential)));
 
         const { email, name, jti, picture } = jwt_decode(response.credential);
 
@@ -25,12 +25,12 @@ const LoginButton = () => {
             const query = `count(*[_type == 'user' && email == '${email}'])`;
             const existingUser = await client.fetch(query);
 
-            if (existingUser) {
-                throw new Error('Email is already in use')
-            } else {
-                await client.createIfNotExists(doc)
-                navigate('/', { replace: true });
-            }
+            // if (existingUser) {
+            // throw new Error('Email is already in use')
+            // } else {
+            await client.createIfNotExists(doc)
+            navigate('/', { replace: true });
+            // }
 
         } catch (error) {
             console.error(`Error creating user document: ${error.message}`);

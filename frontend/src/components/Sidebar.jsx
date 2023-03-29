@@ -3,25 +3,37 @@ import { NavLink, Link } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
 import { IoIosArrowForward } from 'react-icons/io';
 
-import logo from '../assets/me_share5.png';
+import logo from '../assets/me_share5_noborder.png';
 
 const Sidebar = ({ user, closeToggle }) => {
     const handleCloseSidebar = () => {
         if (closeToggle) closeToggle(false)
     }
 
+    const isNotActiveStyle = 'flex items-center px-5 gap-2 text-red-600 hover:text-red-400 transition-all duration-200 ease-in-out capitalize';
+    const isActiveStyle = 'flex items-center px-5 gap-2 text-red-600 font-extrabold border-r-2 border-red-600 transition-all duration-200 ease-in-out capitalize';
+
     return (
-        <div className='flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar'>
-            <div className='flex flex-col'>
+        <div className="flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar">
+            <div className="flex flex-col">
                 <Link
                     to="/"
-                    className='flex px-f gap-2 my-6 pt-1 w-190 items-center'
+                    className="flex px-5 gap-2 my-6 pt-1 w-190 items-center"
                     onClick={handleCloseSidebar}
                 >
-                    <img src={logo} alt='logo' className='w-full' />
+                    <img src={logo} alt="logo" className="w-full" />
                 </Link>
+                <div className="flex flex-col gap-5">
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}
+                    >
+                        <RiHomeFill />
+                        Home
+                    </NavLink>
+                </div>
             </div>
-            idebar
+
         </div>
     )
 }

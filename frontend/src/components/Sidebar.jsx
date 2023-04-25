@@ -25,7 +25,9 @@ const Sidebar = ({ user, closeToggle }) => {
 
     return (
         <div className="flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar">
+
             <div className="flex flex-col">
+
                 <Link
                     to="/"
                     className="flex px-5 gap-2 my-6 pt-1 w-190 items-center"
@@ -33,6 +35,7 @@ const Sidebar = ({ user, closeToggle }) => {
                 >
                     <img src={logo} alt="logo" className="w-full" />
                 </Link>
+
                 <div className="flex flex-col gap-5">
                     <NavLink
                         to="/"
@@ -53,8 +56,26 @@ const Sidebar = ({ user, closeToggle }) => {
                             {category.name}
                         </NavLink>
                     ))}
-                    
+
                 </div>
+            </div>
+
+            <div>
+                {user && (
+                    <Link
+                        to={`user-profile/${user._id}`}
+                        className='flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg'
+                        onClick={handleCloseSidebar}
+                    >
+                        <img
+                            src={user.image}
+                            className='w-10 h-10 rounded-full'
+                            alt='user-profile'
+                        />
+                        <p>{user.username}</p>
+                    </Link>
+
+                )}
             </div>
 
         </div>

@@ -10,8 +10,18 @@ const Sidebar = ({ user, closeToggle }) => {
         if (closeToggle) closeToggle(false)
     }
 
-    const isNotActiveStyle = 'flex items-center px-5 gap-2 text-red-600 hover:text-red-400 transition-all duration-200 ease-in-out capitalize';
+    const isNotActiveStyle = 'flex items-center px-5 gap-3 text-red-600 hover:text-red-400 transition-all duration-200 ease-in-out capitalize';
     const isActiveStyle = 'flex items-center px-5 gap-2 text-red-600 font-extrabold border-r-2 border-red-600 transition-all duration-200 ease-in-out capitalize';
+
+    const categories = [
+        { name: 'People' },
+        { name: 'Tech' },
+        { name: 'News' },
+        { name: 'Events' },
+        { name: 'Gaming' },
+        { name: 'Shorts' },
+        { name: 'Other' }
+    ];
 
     return (
         <div className="flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar">
@@ -27,10 +37,23 @@ const Sidebar = ({ user, closeToggle }) => {
                     <NavLink
                         to="/"
                         className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}
+                        onClick={handleCloseSidebar}
                     >
                         <RiHomeFill />
                         Home
                     </NavLink>
+
+                    {categories.slice(0, categories.length - 1).map((category) => (
+                        <NavLink
+                            to={`/category/${category.name}`}
+                            className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}
+                            onClick={handleCloseSidebar}
+                            key={category.name}
+                        >
+                            {category.name}
+                        </NavLink>
+                    ))}
+                    
                 </div>
             </div>
 

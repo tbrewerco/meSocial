@@ -5,7 +5,7 @@ import { userQuery } from '../utils/data';
 
 import { Sidebar, UserProfile } from '../components';
 import Pins from '../containers/Pins';
-import logo from '../assets/me_share5.png';
+import logo from '../assets/me_share5_noborder.png';
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 
@@ -38,7 +38,7 @@ const Home = () => {
                 <div className='p-2 w-full flex flex-row justify-between items-center shadow-md'>
                     <HiMenu fontSize={40} className='cursor-pointer' onClick={() => setToggleSideBar(true)} />
                     <Link to='/'>
-                        <img src={logo} alt='logo' className='w-28' />
+                        <img src={logo} alt='logo' className='w-190' />
                     </Link>
                     <Link to={`user-profile/${user?._id}`}>
                         <img src={user?.image} alt='userimg' className='w-10 rounded-full' />

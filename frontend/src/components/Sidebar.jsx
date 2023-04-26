@@ -45,7 +45,7 @@ const Sidebar = ({ user, closeToggle }) => {
                         <RiHomeFill />
                         Home
                     </NavLink>
-
+                    {/* last category is not shown in list */}
                     {categories.slice(0, categories.length - 1).map((category) => (
                         <NavLink
                             to={`/category/${category.name}`}

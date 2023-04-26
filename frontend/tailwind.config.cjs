@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: 'media',
+  darkMode: false,
   theme: {
     extend: {
       margin: {
@@ -74,7 +74,7 @@ module.exports = {
         },
       },
       animation: {
-        'slide-in': 'slide-in 0.15s ease-out',
+        'slide-in': 'slide-in 0.5s ease-out',
         'slide-fwd': ' slide-fwd 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',
       },
       transitionProperty: {
@@ -90,5 +90,5 @@ module.exports = {
     // backgroundColor: ['active'],
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [],
 };

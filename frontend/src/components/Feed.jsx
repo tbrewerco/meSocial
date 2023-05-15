@@ -12,9 +12,9 @@ const Feed = () => {
   const { categoryId } = useParams();
 
   useEffect(() => {
-    setLoading(true)
 
     if (categoryId) {
+      setLoading(true)
       const query = searchQuery(categoryId);
 
       client.fetch(query)
@@ -23,14 +23,15 @@ const Feed = () => {
           setLoading(false)
         })
     } else {
-      client.fetch(feedQuery)
+      setLoading(true)
+      const query = feedQuery;
+      client.fetch(query)
         .then((data) => {
           setPins(data);
           setLoading(false);
         })
     }
   }, [categoryId]);
-
 
   if (loading) return <Spinner message='Working on it' />
 

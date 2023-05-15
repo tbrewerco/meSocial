@@ -5,7 +5,7 @@ const Spinner = ({ message }) => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full'>
       <RevolvingDot
-        width="300"
+        width="200"
         color="#cd1717"
         className='m-5'
       />

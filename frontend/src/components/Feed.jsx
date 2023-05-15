@@ -17,7 +17,7 @@ const Feed = () => {
     if (categoryId) {
       const query = searchQuery(categoryId);
 
-      clearInterval.fetch(query)
+      client.fetch(query)
         .then((data) => {
           setPins(data);
           setLoading(false)

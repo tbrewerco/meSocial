@@ -8,7 +8,7 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import { client, urlFor } from '../client';
 import { fetchUser } from '../utils/fetchUser';
 
-const Pin = ({ pin: { postedBy, image, _id, destination } }) => {
+const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
     const [postHovered, setPostHovered] = useState(false);
     const [savingPost, setSavingPost] = useState(false);
     const navigate = useNavigate();
@@ -48,6 +48,15 @@ const Pin = ({ pin: { postedBy, image, _id, destination } }) => {
                                     <MdDownloadForOffline />
                                 </a>
                             </div>
+                            {alreadySaved ? (
+                                <button>
+                                    <MdCheckCircleOutline />
+                                </button>
+                            ) : (
+                                <button className='bg-white w-7 height-7 p-1 rounded-full items-center justify-center text-dark text-xl opacity-50 hover:opacity-100 hover:shadow-md'>
+                                    <MdThumbUp />
+                                </button>
+                            )}
                         </div>
                     </div>
                 )}

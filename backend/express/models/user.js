@@ -17,8 +17,27 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
+        },
+        googleId: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     });
+
+    User.findOrCreateFromGoogleId = async function ({ googleId, email, name, picture }) {
+        let user = await User.findOne({ where: { googleId } });
+
+        if (!user) {
+            user = await User.create({
+                googleId,
+                email,
+                username: name,
+                image: picture
+            });
+        };
+
+        return user;
+    };
 
     return User;
 };

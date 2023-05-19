@@ -13,19 +13,19 @@ const registerUser = async (username, password, email) => {
         const data = await response.json();
 
         if (!response.ok) {
-            setAlertOpen(true);
             throw new Error(data.message || 'Error registering user');
         }
 
-        navigate('/', { replace: true });
+        return data;
     } catch (error) {
         console.error(`Error creating user: ${error.message}`);
+        throw Error(error.message || 'Error creating user');
     }
 };
 
 const loginUser = async (username, password) => {
     try {
-        const response = await fetch('http://localhost:3000/api/register', {
+        const response = await fetch('http://localhost:3000/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -40,10 +40,10 @@ const loginUser = async (username, password) => {
             throw new Error(data.message || 'Error logging in');
         }
 
-        return data;
+        navigate('/', { replace: true });
     } catch (error) {
         console.error(`Error logging in: ${error.message}`);
-        throw error;
+        throw Error(error.message || 'Error logging in');
     };
 };
 

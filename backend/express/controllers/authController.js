@@ -3,13 +3,14 @@ import { OAuth2Client } from 'google-auth-library';
 import models from '../models/index.js';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 const User = models.User;
 
 const googleSignIn = async (req, res, next) => {
     const { id_token } = req.body;
 
     try {
-        const ticket = await client.verifyIdTokenAsync({
+        const ticket = await client.verifyIdToken({
             idToken: id_token,
             audience: process.env.GOOGLE_CLIENT_ID
         });
@@ -33,6 +34,4 @@ const googleSignIn = async (req, res, next) => {
     }
 };
 
-const thisThing = 'that';
-
-export default { googleSignIn, thisThing }; 
+export default { googleSignIn };

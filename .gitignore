@@ -2,6 +2,7 @@
 
 # Dependencies
 backend/node_modules
+backend/express/node_modules
 /.pnp
 .pnp.js
 
@@ -52,3 +53,4 @@ frontend/*.local
 
 frontend/src/assets/Vite + React.html
 frontend/.env
+.env

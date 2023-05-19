@@ -1,5 +1,9 @@
 export default (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         username: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -11,7 +15,7 @@ export default (sequelize, DataTypes) => {
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         email: {
             type: DataTypes.STRING,
@@ -19,25 +23,28 @@ export default (sequelize, DataTypes) => {
             unique: true
         },
         googleId: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(512),
             allowNull: true,
         }
     });
 
-    User.findOrCreateFromGoogleId = async function ({ googleId, email, name, picture }) {
-        let user = await User.findOne({ where: { googleId } });
-
-        if (!user) {
-            user = await User.create({
-                googleId,
-                email,
-                username: name,
-                image: picture
+    User.findOrCreateFromGoogleId = async function ({ sub, email, name, picture }) {
+        try {
+            const [user] = await User.findOrCreate({
+                where: { googleId: sub },
+                defaults: {
+                    name: name,
+                    email: email,
+                    username: email,
+                    image: picture,
+                    googleId: sub
+                }
             });
+            return user;
+        } catch (error) {
+            console.error('Error during findOrCreateFromGoogleId:', error);
+            throw error;
         };
-
-        return user;
     };
-
     return User;
 };

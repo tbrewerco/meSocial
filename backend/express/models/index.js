@@ -1,16 +1,19 @@
 import Sequelize from "sequelize";
-import UserModel from './models/user.js';
-import PinModel from './models/pin.js';
-import CommentModel from './models/comment.js';
-import LikeModel from './models/like.js';
+import dbConfig from '../config/dbConfig.js';
 
-const { HOST, USERNAME, DATABASE, PASSWORD } = process.env;
+const env = process.env.NODE_ENV || 'development';
+const config = dbConfig[env];
 
-const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
-    host: HOST,
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
     port: 3306,
     dialect: 'mysql'
 });
+
+import UserModel from './user.js';
+import PinModel from './pin.js';
+import CommentModel from './comment.js';
+import LikeModel from './like.js';
 
 const User = UserModel(sequelize, Sequelize.DataTypes);
 const Pin = PinModel(sequelize, Sequelize.DataTypes);

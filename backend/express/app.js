@@ -1,8 +1,7 @@
-import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import sequelize from './index.js';
+import sequelize from './models/index.js';
 
 import authRoutes from './routes/authRoutes.js';
 

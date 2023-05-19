@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import FormExtra from '../components/FormExtra';
 import FormAction from '../components/FormAction';
-import { client } from '../client';
-import bcrypt from 'bcryptjs';
+import authService from '../services/authService';
 
 const Form = (props) => {
-
   const navigate = useNavigate();
 
   //  use appropriate form fields based on the props passed in
@@ -25,43 +23,29 @@ const Form = (props) => {
     setFormState((prevState) => ({ ...prevState, ...updatedField }))
   }, [])
 
-  // register user 
-  const registerUser = async () => {
 
+  const registerUser = async () => {
     const { username, password } = formState;
     const email = formState['email-address'];
 
-    // generate salt and hash
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
-
-    const doc = {
-      _type: 'user',
-      username: username,
-      password: hash,
-      email: email
+    try {
+      await authService.registerUser(username, password, email);
+      navigate('/', { replace: true });
+    } catch (error) {
+      setAlertOpen(true);
     };
+  };
+
+  const loginUser = async () => {
+    const { username, password } = formState;
 
     try {
-      // check if user is already in the database
-      const query = `count(*[_type == 'user' && email == '${email}'])`;
-      const existingUser = await client.fetch(query);
-
-      if (existingUser) {
-        setAlertOpen(true);
-        throw new Error('Email is already in use')
-      } else {
-        await client.createIfNotExists(doc)
-        navigate('/', { replace: true });
-      }
-
+      await authService.loginUser(username, password);
+      navigate('/', { replace: true });
     } catch (error) {
-      console.error(`Error creating user document: ${error.message}`);
+      setAlertOpen(true);
     }
-  }
-  // const authenticateUser = () => {
-
-  // };
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();

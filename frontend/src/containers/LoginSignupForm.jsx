@@ -40,6 +40,7 @@ const Form = (props) => {
     const confirmPassword = formState['confirm-password'];
 
     const validationError = signUpFormValidator(username, password, email, confirmPassword);
+
     if (validationError !== '') {
       alertFunction(validationError);
       return;
@@ -55,6 +56,14 @@ const Form = (props) => {
 
   const loginUser = async () => {
     const { username, password } = formState;
+
+    const validationError = signUpFormValidator(username, password, null, null);
+
+    if (validationError !== '') {
+      alertFunction(validationError);
+      return;
+    }
+
     try {
       await authService.loginUser(username, password);
       navigate('/', { replace: true });

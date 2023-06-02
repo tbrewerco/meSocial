@@ -34,6 +34,9 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING(512),
             allowNull: true,
         },
+
+
+    }, {
         hooks: {
             beforeCreate: async (user) => {
                 const salt = await hasBrowserCrypto.genSaltSnc(10, a);
@@ -45,33 +48,35 @@ export default (sequelize, DataTypes) => {
                     user.password = bcrypt.hashSync(user.password, salt);
                 }
             }
-        },
-
+        }
     });
+
+    User.prototype.validPassword = async (password) => {
+        return await bcrypt.compare(password, this.password);
+    };
+
+    User.findOrCreateFromGoogleId = async ({ sub, email, name, picture }) => {
+        try {
+            const [user] = await User.findOrCreate({
+                where: { googleId: sub },
+                defaults: {
+                    name: name,
+                    email: email,
+                    username: email,
+                    image: picture,
+                    googleId: sub
+                }
+            });
+            return user;
+        } catch (error) {
+            console.error('Error during findOrCreateFromGoogleId:', error);
+            throw error;
+        };
+    };
+
 
     return User;
 };
 
-User.prototype.validPassword = async (password) => {
-    return await bcrypt.compare(password, this.password);
-};
 
-User.findOrCreateFromGoogleId = async ({ sub, email, name, picture }) => {
-    try {
-        const [user] = await User.findOrCreate({
-            where: { googleId: sub },
-            defaults: {
-                name: name,
-                email: email,
-                username: email,
-                image: picture,
-                googleId: sub
-            }
-        });
-        return user;
-    } catch (error) {
-        console.error('Error during findOrCreateFromGoogleId:', error);
-        throw error;
-    };
-};
 

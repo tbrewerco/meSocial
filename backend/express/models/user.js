@@ -30,22 +30,21 @@ export default (sequelize, DataTypes) => {
                 isEmail: true
             }
         },
-        google_id: {
+        googleId: {
             type: DataTypes.STRING(512),
             allowNull: true,
         },
-
-
     }, {
         hooks: {
             beforeCreate: async (user) => {
-                const salt = await hasBrowserCrypto.genSaltSnc(10, a);
-                user.password = bcrypt.hashSync(user.password, salt);
+                const salt = bcrypt.genSaltSync(10);
+                user.password = await bcrypt.hash(user.password, salt);
             },
             beforeUpdate: async (user) => {
                 if (user.changed('password')) {
-                    const salt = await bcrypt.genSaltSnc(user.password, salt);
-                    user.password = bcrypt.hashSync(user.password, salt);
+                    const salt = bcrypt.genSaltSync(10);
+                    user.password = await bcrypt.hash(user.password, salt);
+
                 }
             }
         }

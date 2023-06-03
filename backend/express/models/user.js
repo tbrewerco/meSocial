@@ -4,7 +4,7 @@ export default (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         username: {
             type: DataTypes.STRING,

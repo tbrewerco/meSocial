@@ -1,8 +1,8 @@
 const registerUser = async (username, password, email) => {
     try {
-        const response = await fetch('http://localhost:3000/api/register', {
+        const response = await fetch('http://localhost:3000/api/auth/register', {
             method: 'POST',
-            headers: { 'Content-Type': 'application-json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 username,
                 password,
@@ -25,7 +25,7 @@ const registerUser = async (username, password, email) => {
 
 const loginUser = async (username, password) => {
     try {
-        const response = await fetch('http://localhost:3000/api/login', {
+        const response = await fetch('http://localhost:3000/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

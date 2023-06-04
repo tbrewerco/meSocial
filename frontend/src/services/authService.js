@@ -47,4 +47,27 @@ const loginUser = async (username, password) => {
     };
 };
 
-export default { registerUser, loginUser };
+const loginWithGoogle = async (id_token) => {
+    const URL = import.meta.env.VITE_SANITY_PROJECT_GOOGLE_AUTH_URL;
+
+    try {
+        const serverResponse = await fetch(URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_token })
+        });
+
+        if (!serverResponse.ok) {
+            throw new Error('Failed to authenticate with server.');
+        };
+
+        return await serverResponse.json()
+    } catch (error) {
+        console.error(`Error logging in: ${error.message}`);
+        throw Error(error.message || 'Error logging in');
+    };
+};
+
+export default { registerUser, loginUser, loginWithGoogle };

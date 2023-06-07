@@ -54,6 +54,12 @@ export default (sequelize, DataTypes) => {
         return await bcrypt.compare(password, this.password);
     };
 
+    User.findOneById = async (userId) => {
+        return await User.findOne({
+            where: { googleId: userId }
+        });
+    };
+
     User.findOrCreateFromGoogleId = async ({ sub, email, name, picture }) => {
         try {
             const [user] = await User.findOrCreate({
@@ -72,7 +78,6 @@ export default (sequelize, DataTypes) => {
             throw error;
         };
     };
-
 
     return User;
 };

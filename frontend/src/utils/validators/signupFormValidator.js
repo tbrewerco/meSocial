@@ -1,7 +1,6 @@
 import validator from "validator";
 
 export default function (username, password, email, confirmPassword) {
-    console.log(username, password, email, confirmPassword);
     if (email && !validator.isEmail(email)) {
         return 'Invalid email format.';
     }

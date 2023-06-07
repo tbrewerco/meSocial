@@ -2,28 +2,17 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
 import { client } from '../client';
+import authService from '../services/authService';
 
 const LoginButton = () => {
     const navigate = useNavigate();
 
-    const URL = import.meta.env.VITE_SANITY_PROJECT_GOOGLE_AUTH_URL;
-
     const success = async (response) => {
-        const id_token = response.credential
+        const id_token = response.credential;
 
-        const serverResponse = await fetch(URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id_token })
-        });
+        const serverResponse = await authService.loginWithGoogle(id_token);
 
-        if (!serverResponse.ok) {
-            throw new Error('Failed to authenticate with server.');
-        };
-
-        const { session } = await serverResponse.json();
+        const { session } = await serverResponse;
         localStorage.setItem('session', session);
 
         navigate('/', { replace: true });

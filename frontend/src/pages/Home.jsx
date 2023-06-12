@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import { client } from '../client';
-import { userQuery } from '../utils/data';
+import { getUser } from '../services/userService.js';
 
 import { Sidebar, UserProfile } from '../components';
 import Pins from '../containers/Pins';
@@ -17,10 +16,9 @@ const Home = () => {
     const userInfo = fetchUser();
 
     useEffect(() => {
-        const query = userQuery(userInfo?.jti);
         async function fetchData() {
-            const userDoc = await client.fetch(query);
-            setUser(userDoc[0]);
+            const userDoc = await getUser(userInfo?.sub);
+            setUser(userDoc);
         };
         fetchData();
     }, [])

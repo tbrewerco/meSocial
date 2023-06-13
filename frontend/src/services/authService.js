@@ -58,7 +58,7 @@ const loginWithGoogle = async (id_token) => {
             },
             body: JSON.stringify({ id_token })
         });
-
+        
         if (!serverResponse.ok) {
             throw new Error('Failed to authenticate with server.');
         };

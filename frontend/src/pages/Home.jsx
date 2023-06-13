@@ -17,7 +17,7 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const userDoc = await getUser(userInfo?.sub);
+            const userDoc = await getUser(userInfo?.googleId);
             setUser(userDoc);
         };
         fetchData();

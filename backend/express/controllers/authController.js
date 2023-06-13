@@ -23,7 +23,9 @@ const googleSignIn = async (req, res, next) => {
             {
                 id: user.id,
                 email: user.email,
-                username: user.username
+                username: user.username,
+                image: user.image,
+                googleId: user.googleId
             },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
@@ -31,6 +33,7 @@ const googleSignIn = async (req, res, next) => {
 
         res.status(200).json({ token });
     } catch (error) {
+        console.error()
         next(error);
     };
 };
@@ -38,8 +41,6 @@ const googleSignIn = async (req, res, next) => {
 const register = async (req, res, next) => {
     try {
         const { username, password, email } = req.body;
-
-        console.log(username, password, email);
 
         if (!validator.isEmail(email)) res.status(400).json({ error: 'Invalid email format' });
         if (!validator.isAlphanumeric(username)) res.status(400).json({ error: 'Username can only contain letters and numbers' });
@@ -61,6 +62,8 @@ const register = async (req, res, next) => {
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
+
+        res.status(201).json({ token });
 
     } catch (error) {
         console.log(error);

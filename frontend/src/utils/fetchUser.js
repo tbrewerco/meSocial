@@ -1,5 +1,6 @@
-export const fetchUser = () => {
-    const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+import jwtDecode from 'jwt-decode';
 
+export const fetchUser = () => {
+    const userInfo = localStorage.getItem('token') !== 'undefined' ? jwtDecode(localStorage.getItem('token')) : localStorage.clear();
     return userInfo;
 };

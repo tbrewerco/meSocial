@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode';
 import { client } from '../client';
 import authService from '../services/authService';
 
@@ -9,11 +8,9 @@ const LoginButton = () => {
 
     const success = async (response) => {
         const id_token = response.credential;
-
         const serverResponse = await authService.loginWithGoogle(id_token);
-
-        const { session } = await serverResponse;
-        localStorage.setItem('session', session);
+        const { token } = await serverResponse;
+        localStorage.setItem('token', token);
 
         navigate('/', { replace: true });
     };

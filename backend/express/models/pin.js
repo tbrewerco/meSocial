@@ -29,5 +29,34 @@ export default (sequelize, DataTypes) => {
         },
     });
 
+    Pin.getPinById = async (pinId) => {
+        return await Pin.findByPk(pinId);
+    };
+
+
+    Pin.createPin = async (pinData) => {
+        return await Pin.create(pinData);
+    };
+
+    Pin.updatePin = async (pinId, pinData) => {
+        const pin = await Pin.findByPk(pinId);
+        if (pin) {
+            await pin.update(pinData);
+        }
+        return pin;
+    };
+
+    Pin.deletePin = async (pinId) => {
+        const pin = await Pin.findByPk(pinId);
+        if (pin) {
+            await pin.destroy();
+        }
+        return pin;
+    };
+
+    Pin.searchPins = async (query) => {
+        return await Pin.findAll({ where: query });
+    };
+
     return Pin;
 };

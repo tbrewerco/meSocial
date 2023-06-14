@@ -16,15 +16,13 @@ const createPin = async (req, res, next) => {
 const getPin = async (req, res, next) => {
     try {
         const pinId = req.params.id;
-        const pin = await Pin.findOneById(pinId);
+        const pin = await Pin.getPinById(pinId);
         res.status(200).json(pin)
     } catch (error) {
         console.error(error);
         next(error);
     };
 };
-
-
 
 const updatePin = async (req, res, next) => {
     try {

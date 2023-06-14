@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import useThrowAsyncError from '../hooks/useThrowAsyncError.js';
 
-import { client } from '../client';
-import { feedQuery, searchQuery } from '../utils/data';
+import { getPins, searchPins } from '../services/pinService.js';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 
@@ -12,26 +12,20 @@ const Feed = () => {
   const { categoryId } = useParams();
 
   useEffect(() => {
+    const fetchPins = async () => {
+      try {
+        setLoading(true);
+        const data = categoryId ? await searchPins({ category: categoryId }) : await getPins();
+        setPins(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch pins:', error);
+      }
+    };
 
-    if (categoryId) {
-      setLoading(true)
-      const query = searchQuery(categoryId);
-
-      client.fetch(query)
-        .then((data) => {
-          setPins(data);
-          setLoading(false)
-        })
-    } else {
-      setLoading(true)
-      const query = feedQuery;
-      client.fetch(query)
-        .then((data) => {
-          setPins(data);
-          setLoading(false);
-        })
-    }
+    fetchPins();
   }, [categoryId]);
+
 
   if (loading) return <Spinner message='Working on it' />
 

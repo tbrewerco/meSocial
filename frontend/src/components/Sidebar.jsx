@@ -18,6 +18,7 @@ const Sidebar = ({ user, closeToggle }) => {
         { name: 'Tech' },
         { name: 'News' },
         { name: 'Events' },
+        { name: 'Sports' },
         { name: 'Gaming' },
         { name: 'Shorts' },
         { name: 'Other' }
@@ -46,7 +47,7 @@ const Sidebar = ({ user, closeToggle }) => {
                         Home
                     </NavLink>
                     {/* last category is not shown in list */}
-                    {categories.slice(0, categories.length - 1).map((category) => (
+                    {categories.slice(0, categories.length).map((category) => (
                         <NavLink
                             to={`/category/${category.name}`}
                             className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}

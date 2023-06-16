@@ -49,7 +49,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                         <div className='flex items-center justify-between'>
                             <div className='flex gap-2'>
                                 <a
-                                    href={`${image}?dl=`}
+                                    href={image}
                                     download
                                     onClick={(event) => event.stopPropagation()}
                                     className='bg-white w-7 height-7 p-1 rounded-full items-center justify-center text-dark text-xl opacity-50 hover:opacity-100 hover:shadow-md'

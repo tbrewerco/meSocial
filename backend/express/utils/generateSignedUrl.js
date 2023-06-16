@@ -9,12 +9,15 @@ const client = new S3Client({
     }
 });
 
-const generateSignedUrl = async (Bucket, Key, Expires = 60 * 5) => {
+const generateSignedUrl = async (Bucket, Key, Expires = 60 * 60 * 3) => {
     try {
-        const command = new GetObjectCommand({ Bucket, Key });
+        const command = new GetObjectCommand({
+            Bucket,
+            Key,
+            ResponseContentType: "application/octet-stream"
+        });
 
         const url = await getSignedUrl(client, command, { expiresIn: Expires });
-
         return url;
     } catch (err) {
         console.error(err);

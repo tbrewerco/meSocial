@@ -1,4 +1,5 @@
 import models from '../models/index.js';
+import generateSignedUrl from '../utils/generateSignedUrl.js';
 
 const Pin = models.Pin;
 
@@ -17,7 +18,15 @@ const getPin = async (req, res, next) => {
     try {
         const pinId = req.params.id;
         const pin = await Pin.getPinById(pinId);
-        res.status(200).json(pin)
+
+        const signedImageUrl = await generateSignedUrl('mesocialpinphotos', pin.image);
+
+        const pinResponse = {
+            ...pin,
+            image: signedImageUrl
+        }
+
+        res.status(200).json(pinResponse)
     } catch (error) {
         console.error(error);
         next(error);
@@ -53,7 +62,15 @@ const searchPins = async (req, res, next) => {
     try {
         const searchQuery = req.query;
         const pins = await Pin.searchPins(searchQuery);
-        res.status(200).send(pins);
+
+        const pinsWithSignedUrls = await Promise.all(
+            pins.map(async (pin) => {
+                const signedImageUrl = await generateSignedUrl('mesocialpinphotos', pin.image);
+                return { ...pin, image: signedImageUrl }
+            })
+        );
+
+        res.status(200).json(pinsWithSignedUrls);
     } catch (error) {
         console.error(error);
         next(error);

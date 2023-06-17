@@ -3,33 +3,48 @@ import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { MdDownloadForOffline, MdThumbUp, MdCheckCircleOutline } from 'react-icons/md';
 import { AiTwotoneDelete } from 'react-icons/ai';
-// import { BsFillArrowUpRightCircleFill } from 'react-icons/ai';
 
 import { fetchUser } from '../utils/fetchUser';
+import { checkIfLiked, createLike } from '../services/likeService';
 
-const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
+const Pin = ({ pin }) => {
     const [postHovered, setPostHovered] = useState(false);
     const [savingPost, setSavingPost] = useState(false);
+    const [alreadySaved, setAlreadySaved] = useState(false);
     const navigate = useNavigate();
     const user = fetchUser();
 
-    const alreadySaved = !!(save?.filter((item) => item.postedBy === user.jti)?.length)
 
-    const savePin = (_id) => {
+    const savePin = async (id) => {
         if (!alreadySaved) {
             setSavingPost(true);
-            client
-                .patch(id)
-                .setIfMissing({})
+            try {
+                await createLike(user.id, id);
+                setAlreadySaved(true);
+            } catch (err) {
+                console.error('Error saving pin', err);
+            } finally {
+                setSavingPost(false);
+            }
         }
     };
 
-    // check if the user is using a touch device
     useEffect(() => {
+        const checkLike = async () => {
+            try {
+                const isLiked = await checkIfLiked(user.id, pin.dataValues.id);
+                setAlreadySaved(isLiked);
+            } catch (err) {
+                console.error('Error checking like', err);
+            }
+        };
+        checkLike();
+
+        // check if the user is using a touch device
         if (window.matchMedia("(pointer: coarse)").matches) {
             setPostHovered(true);
         }
-    }, []);
+    }, [pin.dataValues.id, user.id]);
 
     return (
         <div className='m-3'>
@@ -37,10 +52,10 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
 
-                onClick={() => navigate(`/pin-detail/${_id}`)}
+                onClick={() => navigate(`/pin-detail/${pin.dataValues.id}`)}
                 className='relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
             >
-                <img className='rounded-lg w-full' alt='user-post' src={image}></img>
+                <img className='rounded-lg w-full' alt='user-post' src={pin.image}></img>
                 {postHovered && (
                     <div
                         className='absolute top-0 w-full height-full flex flex-col justify-end p-2 pr-2 pt-2 pb-2 z-50'
@@ -49,7 +64,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                         <div className='flex items-center justify-between'>
                             <div className='flex gap-2'>
                                 <a
-                                    href={image}
+                                    href={pin.image}
                                     download
                                     onClick={(event) => event.stopPropagation()}
                                     className='bg-white w-7 height-7 p-1 rounded-full items-center justify-center text-dark text-xl opacity-50 hover:opacity-100 hover:shadow-md'
@@ -66,7 +81,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                                     type='button'
                                     onClick={(event) => {
                                         event.stopPropagation();
-                                        savePin(_id);
+                                        savePin(pin.dataValues.id);
                                     }}
                                     className='bg-white w-7 height-7 p-1 rounded-full items-center justify-center text-dark text-xl opacity-50 hover:opacity-100 hover:shadow-md'>
                                     {/* {save?.length} */}

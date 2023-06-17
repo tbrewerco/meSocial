@@ -16,5 +16,24 @@ export default (sequelize, DataTypes) => {
         },
     });
 
+    Like.checkLike = async (userId, pinId) => {
+        return await Like.findOne({
+            where: { userId, pinId }
+        });
+    };
+
+    Like.createLike = async (userId, pinId) => {
+        try {
+            const like = await Like.create({
+                userId,
+                pinId
+            });
+            return like;
+        } catch (error) {
+            console.error('Error during createLike: ', err);
+            throw error;
+        };
+    };
+
     return Like;
 }

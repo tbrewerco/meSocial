@@ -5,11 +5,10 @@ import { MdDownloadForOffline, MdThumbUp, MdCheckCircleOutline } from 'react-ico
 import { AiTwotoneDelete } from 'react-icons/ai';
 
 import { fetchUser } from '../utils/fetchUser';
-import { checkIfLiked, createLike } from '../services/likeService';
+import { checkIfLiked, createLike, unlikePost } from '../services/likeService';
 
 const Pin = ({ pin }) => {
     const [postHovered, setPostHovered] = useState(false);
-    const [savingPost, setSavingPost] = useState(false);
     const [alreadySaved, setAlreadySaved] = useState(false);
     const navigate = useNavigate();
     const user = fetchUser();
@@ -17,15 +16,21 @@ const Pin = ({ pin }) => {
 
     const savePin = async (id) => {
         if (!alreadySaved) {
-            setSavingPost(true);
             try {
                 await createLike(user.id, id);
                 setAlreadySaved(true);
             } catch (err) {
                 console.error('Error saving pin', err);
-            } finally {
-                setSavingPost(false);
             }
+        }
+    };
+
+    const unlikePin = async (pinId) => {
+        try {
+            await unlikePost(user.id, pinId);
+            setAlreadySaved(false);
+        } catch (err) {
+            console.error('Error unlikeing pin', err);
         }
     };
 
@@ -73,8 +78,15 @@ const Pin = ({ pin }) => {
                                 </a>
                             </div>
                             {alreadySaved ? (
-                                <button type='button'>
-                                    <MdCheckCircleOutline />
+                                <button
+                                    type='button'
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        unlikePin(pin.dataValues.id);
+                                    }}
+                                    className='bg-white w-7 height-7 items-center rounded-full opacity-50 hover:opacity-100'
+                                >
+                                    <MdCheckCircleOutline font-size={'29px'} />
                                 </button>
                             ) : (
                                 <button

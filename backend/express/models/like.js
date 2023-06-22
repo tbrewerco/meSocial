@@ -35,5 +35,17 @@ export default (sequelize, DataTypes) => {
         };
     };
 
+    Like.unlike = async (userId, pinId) => {
+        try {
+            const like = await Like.destroy({
+                where: { userId, pinId }
+            });
+            return like;
+        } catch (error) {
+            console.error('Error during unlike: ', error);
+            throw error;
+        };
+    };
+
     return Like;
 }

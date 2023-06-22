@@ -26,4 +26,16 @@ const createLike = async (req, res, next) => {
     };
 };
 
-export default { checkLike, createLike };
+const unlikeLike = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+        const pinId = req.params.pinId;
+        const unlikePost = Like.unlike(userId, pinId);
+        res.status(200).send(unlikePost);
+    } catch (error) {
+        console.error(error);
+        next(error);
+    };
+};
+
+export default { checkLike, createLike, unlikeLike };

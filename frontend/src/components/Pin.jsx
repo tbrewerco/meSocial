@@ -52,15 +52,15 @@ const Pin = ({ pin }) => {
     }, [pin.dataValues.id, user.id]);
 
     return (
-        <div className='m-3'>
+        <div >
             <div
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
 
                 onClick={() => navigate(`/pin-detail/${pin.dataValues.id}`)}
-                className='relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
+                className='relative w-auto grayscale hover:grayscale-0 hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out'
             >
-                <img className='rounded-lg w-full' alt='user-post' src={pin.image}></img>
+                <img className=' w-full' alt='user-post' src={pin.image}></img>
                 {postHovered && (
                     <div
                         className='absolute top-0 w-full height-full flex flex-col justify-end p-2 pr-2 pt-2 pb-2 z-50'

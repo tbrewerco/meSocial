@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
-import { client } from '../client';
 import authService from '../services/authService';
 
 const LoginButton = () => {

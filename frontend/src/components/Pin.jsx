@@ -84,6 +84,7 @@ const Pin = ({ pin }) => {
                                         event.stopPropagation();
                                         unlikePin(pin.dataValues.id);
                                     }}
+                                    className='bg-white w-7 height-7 items-center rounded-full opacity-50 hover:opacity-100'
                                 >
                                     <MdCheckCircleOutline font-size={'29px'} />
                                 </button>

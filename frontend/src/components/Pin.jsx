@@ -8,11 +8,16 @@ import { fetchUser } from '../utils/fetchUser';
 import { checkIfLiked, createLike, unlikePost } from '../services/likeService';
 
 const Pin = ({ pin }) => {
+    const baseStyles = 'relative w-auto hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out';
+    const normalScreenStyles = 'grayscale hover:grayscale-0';
+    const touchScreenStyles = 'grayscale-0';
+
     const [postHovered, setPostHovered] = useState(false);
     const [alreadySaved, setAlreadySaved] = useState(false);
+    const [styles, setStyles] = useState(`${baseStyles} ${normalScreenStyles}`);
+
     const navigate = useNavigate();
     const user = fetchUser();
-
 
     const savePin = async (id) => {
         if (!alreadySaved) {
@@ -56,9 +61,12 @@ const Pin = ({ pin }) => {
             <div
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
-
+                onTouchStart={() => setStyles(`${baseStyles} ${touchScreenStyles}`)}
+                onTouchEnd={() => setStyles(`${baseStyles} ${normalScreenStyles}`)}
                 onClick={() => navigate(`/pin-detail/${pin.dataValues.id}`)}
-                className='relative w-auto grayscale hover:grayscale-0 hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out'
+
+                className={styles}
+
             >
                 <img className=' w-full' alt='user-post' src={pin.image}></img>
                 {postHovered && (
@@ -104,7 +112,7 @@ const Pin = ({ pin }) => {
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -35,7 +35,7 @@ const Pin = ({ pin }) => {
             await unlikePost(user.id, pinId);
             setAlreadySaved(false);
         } catch (err) {
-            console.error('Error unlikeing pin', err);
+            console.error('Error unliking pin', err);
         }
     };
 
@@ -94,7 +94,7 @@ const Pin = ({ pin }) => {
                                     }}
                                     className='bg-white w-7 height-7 items-center rounded-full opacity-50 hover:opacity-100'
                                 >
-                                    <MdCheckCircleOutline font-size={'29px'} />
+                                    <MdCheckCircleOutline fontSize={'29px'} />
                                 </button>
                             ) : (
                                 <button
